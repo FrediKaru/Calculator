@@ -130,10 +130,11 @@ function handleKeyPress(e) {
     if (e.key >= 0 && e.key <= 9){
         handleNumber(e.key)
     }
-    if (e.key === "Enter" || 
+    if (
+        e.key === "Enter" || 
         (e.key === "=" && currentNum!="" && previousNum != "")
-        ) {
-        compute();
+    ) {
+        calculate();
     }
     if (e.key ==="+" || e.key ==="-" || e.key ==="/"){
         handleOperator(e.key)
@@ -144,4 +145,21 @@ function handleKeyPress(e) {
     if (e.key === ".") {
         addDecimal();
     }
+    if (e.key === "Backspace") {
+        handleDelete();
+    }
+}
+
+function handleDelete() {
+    if(currentNum !== ""){
+        currentNum = currentNum.slice(0,-1);
+        currentDisplayNumber.textContent = currentNum;
+        if (currentNum === "") {
+            currentDisplayNumber.textContent = "0";
+        }
+    }
+    if (currentNum === "" && previousNum!== "" && operator === "") {
+        previousNum = previousNum.slice(0, -1);
+        currentDisplayNumber.textContent = previousNum;
+    } 
 }
